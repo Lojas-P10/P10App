@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#00bf63",
     paddingHorizontal: 20,
+    height: 100,
     paddingTop: 40,
     flexDirection: "row",
     alignItems: "center",

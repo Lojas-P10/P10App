@@ -90,7 +90,7 @@ function TabRoutes() {
 export default function Routes() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="TabRoutes" headerMode="none">
+      <Stack.Navigator initialRouteName="TabRoutes" headerMode="false">
         <Stack.Screen name="TabRoutes" component={TabRoutes} />
         <Stack.Screen name="Produto" component={Produto} />
       </Stack.Navigator>
