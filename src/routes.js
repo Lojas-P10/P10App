@@ -1,18 +1,19 @@
 import React from "react";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
-
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 
 import Home from "./screens/Home";
+import Encomendas from "./screens/Encomendas";
+import Favoritos from "./screens/Favoritos";
+import Produto from "./screens/Produto";
+import Mais from "./screens/Mais";
 import Icon from "react-native-vector-icons/Feather";
 
-const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
 
-function HomeRoutes() {
+function TabRoutes() {
   return (
     <Tabs.Navigator
       tabBarOptions={{
@@ -42,7 +43,7 @@ function HomeRoutes() {
       />
       <Tabs.Screen
         name="Encomendas"
-        component={Home}
+        component={Encomendas}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
@@ -56,7 +57,7 @@ function HomeRoutes() {
       />
       <Tabs.Screen
         name="Favoritos"
-        component={Home}
+        component={Favoritos}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
@@ -70,7 +71,7 @@ function HomeRoutes() {
       />
       <Tabs.Screen
         name="Mais"
-        component={Home}
+        component={Mais}
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Icon
@@ -89,7 +90,10 @@ function HomeRoutes() {
 export default function Routes() {
   return (
     <NavigationContainer>
-      <HomeRoutes />
+      <Stack.Navigator initialRouteName="TabRoutes" headerMode="none">
+        <Stack.Screen name="TabRoutes" component={TabRoutes} />
+        <Stack.Screen name="Produto" component={Produto} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
