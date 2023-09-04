@@ -1,27 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import { ScrollView, StyleSheet } from 'react-native';
-import Visitados from '../../components/Home/Visitados';
-import Categorias from '../../components/Home/Categorias';
-import Marcas from '../../components/Home/Marcas';
-import Dez from '../../components/Home/Dez';
-import Nav from "../../components/Common/Nav"
-import Sazonal from '../../components/Home/Sazonal';
-
+import { ScrollView, StyleSheet, View } from "react-native";
+import Header from "../../components/Common/Header";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 export default function Home({ navigation }) {
   return (
-    <ScrollView showsHorizontalScrollIndicator={true} style={styles.container}>
-      <Nav />
-      <Categorias />
-      <Sazonal />
-      <Marcas />
-      <Dez />
-      <Visitados />
-{/*       <Sugestoes />
-      <Promocoes />
-      <Ofertas navigation={navigation} />
-       */}
-    </ScrollView>
+    <View style={styles.container}>
+      <View style={{ justifyContent: "space-between", width: "100%" }}>
+        <MaterialCommunityIcons
+          name="arrow-left-bold-outline"
+          size={24}
+          color="#333"
+        />
+        <MaterialCommunityIcons
+          name="cards-heart-outline"
+          size={24}
+          color="#333"
+        />
+      </View>
+      <ScrollView showsHorizontalScrollIndicator={true}></ScrollView>
+    </View>
   );
 }
 
@@ -29,6 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#f8f8f8",
-    paddingBottom: 200,
+    gap: 10,
+    paddingTop: 30,
   },
 });

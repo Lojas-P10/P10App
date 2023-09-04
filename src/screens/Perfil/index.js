@@ -7,7 +7,6 @@ import Dez from "../../components/Home/Dez";
 import Nav from "../../components/Common/Nav";
 import Sazonal from "../../components/Home/Sazonal";
 import Novidades from "../../components/Home/Novidades";
-import Promocao from "../../components/Home/Promocao";
 import Header from "../../components/Common/Header";
 
 export default function Home({ navigation }) {
@@ -16,7 +15,7 @@ export default function Home({ navigation }) {
       <Header />
       <ScrollView showsHorizontalScrollIndicator={true}>
         <Nav />
-        <Novidades />
+        <Novidades navigation={navigation}/>
         <Sazonal />
         <Marcas />
         <Dez />

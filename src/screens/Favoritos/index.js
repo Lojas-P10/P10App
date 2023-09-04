@@ -14,7 +14,10 @@ export default function Home({ navigation }) {
   return (
     <View style={styles.container}>
       <Header />
-      <ScrollView showsHorizontalScrollIndicator={true}>
+      <ScrollView
+        showsHorizontalScrollIndicator={true}
+        
+      >
         <Nav />
         <Novidades />
         <Sazonal />
