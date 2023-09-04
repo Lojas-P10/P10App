@@ -20,7 +20,6 @@ function HomeRoutes() {
         inactiveTintColor: "#fff",
       }}
       appearance={{
-        floating: true,
         activeTabBackgrounds: "white",
         tabBarBackground: "#00bf63",
         shadow: true,

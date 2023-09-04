@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -67,7 +68,6 @@ export default function Nav() {
 
   return (
     <View>
-      <Header />
       <View style={styles.content}>
         <View style={{gap: 10}}>
           <View>
@@ -117,24 +117,6 @@ export default function Nav() {
             horizontal
             style={styles.lista}
           >
-            {categorias.map((categoria) => (
-              <Card key={categoria.id} categoria={categoria} />
-            ))}
-            {categorias.map((categoria) => (
-              <Card key={categoria.id} categoria={categoria} />
-            ))}
-            {categorias.map((categoria) => (
-              <Card key={categoria.id} categoria={categoria} />
-            ))}
-            {categorias.map((categoria) => (
-              <Card key={categoria.id} categoria={categoria} />
-            ))}
-            {categorias.map((categoria) => (
-              <Card key={categoria.id} categoria={categoria} />
-            ))}
-            {categorias.map((categoria) => (
-              <Card key={categoria.id} categoria={categoria} />
-            ))}
             {categorias.map((categoria) => (
               <Card key={categoria.id} categoria={categoria} />
             ))}

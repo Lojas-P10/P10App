@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
+import {
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 /* import api from '../../services/api'; */
@@ -14,18 +21,17 @@ function Card() {
         </Text>
         <Text style={{ fontSize: 15, color: "#333" }}>Caneta BIC</Text>
       </View>
-      <View style={styles.btn}>
+      <View style={styles.save}>
         <MaterialCommunityIcons name="heart" size={20} color="white" />
-        <MaterialCommunityIcons name="cart-plus" size={20} color="white" />
       </View>
-      <View style={styles.unid}>
-        <Text style={{color: "white"}}>10 unidades</Text>
+      <View style={styles.cart}>
+        <MaterialCommunityIcons name="cart-plus" size={20} color="white" />
       </View>
     </View>
   );
 }
 
-export default function Visitados() {
+export default function Promocao() {
   /*   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
@@ -39,20 +45,14 @@ export default function Visitados() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.titulo}>Você passou por aqui ;)</Text>
+        <Text style={styles.titulo}>Em promocão</Text>
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
-      >
+      <ScrollView horizontal={true}>
         <Card />
         <Card />
         <Card />
         <Card />
-      </View>
+      </ScrollView>
     </View>
   );
 }
@@ -62,47 +62,52 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingHorizontal: 20,
     backgroundColor: "#f8f8f8",
-    paddingBottom: 20,
   },
+  header: {
+    flexDirection: "row",
+},
   titulo: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333"
+    color: "#333",
   },
   imagem: {
     width: "100%",
-    height: 130,
+    height: 160,
     borderRadius: 10,
   },
   card: {
-    width: "48%",
+    width: 180,
     backgroundColor: "#fff",
     borderRadius: 10,
     paddingHorizontal: 10,
-    marginVertical: 10,
+    paddingVertical: 5,
+    marginRight: 10,
+    marginVertical: 10
   },
-  btn: {
+  cart: {
     backgroundColor: "#00bf63",
     width: 40,
-    height: 70,
+    height: 40,
     gap: 10,
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
     overflow: "hidden",
-    borderRadius: 15,
-    borderTopRightRadius: 0,
-    borderBottomLeftRadius: 0,
+    borderRadius: 10,
     zIndex: 5,
     position: "absolute",
-    bottom: 0,
-    right: 0,
+    bottom: 5,
+    right: 5,
   },
-  unid: {
+  save: {
     backgroundColor: "#00bf63",
-    padding: 7,
+    width: 40,
+    height: 40,
+    gap: 10,
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
     overflow: "hidden",
     borderRadius: 10,
     borderTopLeftRadius: 0,

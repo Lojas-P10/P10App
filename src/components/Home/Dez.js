@@ -31,7 +31,7 @@ function Card() {
   );
 }
 
-export default function Sazonal() {
+export default function Dez() {
   /*   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {

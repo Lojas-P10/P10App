@@ -9,5 +9,6 @@ export default function App() {
       <StatusBar style="auto" />
       <Routes />
     </Fragment>
+    
   );
 }
