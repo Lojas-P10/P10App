@@ -8,26 +8,32 @@ import {
   ScrollView,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import api from "../../services/api";
 
 function Card(props) {
+  const navigation = useNavigation();
   return (
-    <View style={styles.card}>
-      <Image style={styles.imagem} source={{uri: props.produto.imagem}} />
-      <View>
-        <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
-          R${props.produto.preco}
-        </Text>
-        <Text style={{ fontSize: 15, color: "#333" }}>{props.produto.nome}</Text>
+    <TouchableOpacity onPress={() => navigation.navigate("Produto")}>
+      <View style={styles.card}>
+        <Image style={styles.imagem} source={{ uri: props.produto.imagem }} />
+        <View>
+          <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
+            R${props.produto.preco}
+          </Text>
+          <Text style={{ fontSize: 15, color: "#333" }}>
+            {props.produto.nome}
+          </Text>
+        </View>
+        <View style={styles.save}>
+          <MaterialCommunityIcons name="heart" size={20} color="white" />
+        </View>
+        <View style={styles.cart}>
+          <MaterialCommunityIcons name="cart-plus" size={20} color="white" />
+        </View>
       </View>
-      <View style={styles.save}>
-        <MaterialCommunityIcons name="heart" size={20} color="white" />
-      </View>
-      <View style={styles.cart}>
-        <MaterialCommunityIcons name="cart-plus" size={20} color="white" />
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -41,7 +47,8 @@ export default function Novidades() {
     }
     carregarProdutos();
   }, []);
-  const ultimosSeisProdutos = produtos.slice(-6);
+
+  const ultimosSeisProdutos = produtos.slice(-6).reverse();
 
   return (
     <View style={styles.container}>
@@ -58,7 +65,7 @@ export default function Novidades() {
       </View>
       <ScrollView horizontal={true}>
         {ultimosSeisProdutos.map((produto) => (
-          <Card key={produto.id} produto={produto}  />
+          <Card key={produto.id} produto={produto} />
         ))}
       </ScrollView>
     </View>

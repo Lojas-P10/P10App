@@ -9,17 +9,17 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-/* import api from '../../services/api'; */
+import api from "../../services/api";
 
-function Card() {
+function Card({ produto }) {
   return (
     <View style={styles.card}>
-      <Image style={styles.imagem} source={require("../../assets/bic.webp")} />
+      <Image style={styles.imagem} source={{ uri: produto.imagem }} />
       <View>
         <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
-          R$1,00
+          R${produto.preco}
         </Text>
-        <Text style={{ fontSize: 15, color: "#333" }}>Caneta BIC</Text>
+        <Text style={{ fontSize: 15, color: "#333" }}>{produto.nome}</Text>
       </View>
       <View style={styles.save}>
         <MaterialCommunityIcons name="heart" size={20} color="white" />
@@ -32,30 +32,47 @@ function Card() {
 }
 
 export default function Sazonal() {
-  /*   const [categorias, setCategorias] = useState([]);
+  const [sazonais, setSazonais] = useState([]);
+  const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
-    async function carregarCategorias() {
-      const response = await api.get('categories');
-      setCategorias(response.data);
+    async function carregarSazonais() {
+      try {
+        const response = await api.get("sazonal");
+        setSazonais(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar produtos sazonais:", error);
+      }
     }
-    carregarCategorias();
+    carregarSazonais();
   }, []);
- */
+
+  useEffect(() => {
+    async function carregarProdutos() {
+      try {
+        const response = await api.get("produtos");
+        setProdutos(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar todos os produtos:", error);
+      }
+    }
+    carregarProdutos();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.titulo}>Perfeito para o seu inverno</Text>
-      </View>
-      <ScrollView horizontal={true}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </ScrollView>
+      {sazonais.map((produtosSazonais, index) => (
+        <View key={index}>
+          <View style={styles.header}>
+            <Text style={styles.titulo}>{produtosSazonais.descricao}</Text>
+          </View>
+          <ScrollView horizontal={true}>
+            {produtos.filter((produto) => produto.sazonal).map((produto) => (
+                <Card key={produto.id} produto={produto} />
+              ))}
+          </ScrollView>
+        </View>
+      ))}
     </View>
   );
 }
@@ -83,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 10,
-    marginVertical: 10
+    marginVertical: 10,
   },
   cart: {
     backgroundColor: "#00bf63",

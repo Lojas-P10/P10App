@@ -9,17 +9,19 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-/* import api from '../../services/api'; */
+import api from "../../services/api";
 
-function Card() {
+function Card(props) {
   return (
     <View style={styles.card}>
-      <Image style={styles.imagem} source={require("../../assets/bic.webp")} />
+      <Image style={styles.imagem} source={{ uri: props.produto.imagem }} />
       <View>
-        <Text style={{ fontSize: 17, fontWeight: "600", color: "red" }}>
-          R$1,00
+        <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
+          R${props.produto.preco}
         </Text>
-        <Text style={{ fontSize: 15, color: "#333" }}>Caneta BIC</Text>
+        <Text style={{ fontSize: 15, color: "#333" }}>
+          {props.produto.nome}
+        </Text>
       </View>
       <View style={styles.save}>
         <MaterialCommunityIcons name="heart" size={20} color="white" />
@@ -31,17 +33,30 @@ function Card() {
   );
 }
 
-export default function Dez() {
-  /*   const [categorias, setCategorias] = useState([]);
+export default function Novidades() {
+  const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
-    async function carregarCategorias() {
-      const response = await api.get('categories');
-      setCategorias(response.data);
+    async function carregarProdutos() {
+      const response = await api.get("produtos");
+      setProdutos(response.data);
     }
-    carregarCategorias();
+    carregarProdutos();
   }, []);
- */
+  useEffect(() => {
+    async function carregarProdutos() {
+      try {
+        const response = await api.get("produtos");
+        setProdutos(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar todos os produtos:", error);
+      }
+    }
+    carregarProdutos();
+  }, []);
+
+  const ultimosSeisProdutos = produtos.slice(-6);
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -49,13 +64,9 @@ export default function Dez() {
         <Text style={styles.titulo}>Impossível ser menos de 10 Reais</Text>
       </View>
       <ScrollView horizontal={true}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {ultimosSeisProdutos.map((produto) => (
+          <Card key={produto.id} produto={produto} />
+        ))}
       </ScrollView>
     </View>
   );
@@ -67,14 +78,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "#f8f8f8",
   },
+  header: {
+    flexDirection: "row",
+    gap: 10,
+    alignItems: "center",
+  },
   titulo: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
-  },
-  header: {
-    flexDirection: "row",
-    gap: 6
   },
   imagem: {
     width: "100%",
@@ -88,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     marginRight: 10,
-    marginVertical: 10
+    marginVertical: 10,
   },
   cart: {
     backgroundColor: "#00bf63",

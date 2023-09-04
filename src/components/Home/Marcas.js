@@ -7,29 +7,26 @@ import {
   View,
   StyleSheet,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import api from '../../services/api';
 
-/* import api from '../../services/api'; */
-
-function Card() {
+function Card(props) {
   return (
     <View style={styles.card}>
-      <MaterialCommunityIcons name="toy-brick" size={30} color="#00bf63" />
-      <Text style={{color: "#333", fontWeight: "600"}}>Brinquedos</Text>
+      <Text style={{color: "#333", fontWeight: "600"}}>{props.marca.nome}</Text>
     </View>
   );
 }
 
 export default function Marcas() {
-  /*   const [categorias, setCategorias] = useState([]);
+  const [marcas, setMarcas] = useState([]);
 
   useEffect(() => {
-    async function carregarCategorias() {
-      const response = await api.get('categories');
-      setCategorias(response.data);
+    async function carregarMarcas() {
+      const response = await api.get("marca");
+      setMarcas(response.data);
     }
-    carregarCategorias();
-  }, []); */
+    carregarMarcas();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -41,13 +38,9 @@ export default function Marcas() {
         horizontal
         style={styles.lista}
       >
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {marcas.map((marca) => (
+          <Card key={marca.id} marca={marca} /> 
+        ))}
       </ScrollView>
     </View>
   );

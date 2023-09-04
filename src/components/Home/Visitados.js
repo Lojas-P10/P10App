@@ -2,40 +2,47 @@ import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-/* import api from '../../services/api'; */
+import api from "../../services/api";
 
-function Card() {
+function Card(props) {
   return (
     <View style={styles.card}>
-      <Image style={styles.imagem} source={require("../../assets/bic.webp")} />
+      <Image style={styles.imagem} source={{ uri: props.produto.imagem }} />
       <View>
         <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
-          R$1,00
+          R${props.produto.preco}
         </Text>
-        <Text style={{ fontSize: 15, color: "#333" }}>Caneta BIC</Text>
+        <Text style={{ fontSize: 15, color: "#333" }}>
+          {props.produto.nome}
+        </Text>
       </View>
       <View style={styles.btn}>
         <MaterialCommunityIcons name="heart" size={20} color="white" />
         <MaterialCommunityIcons name="cart-plus" size={20} color="white" />
       </View>
       <View style={styles.unid}>
-        <Text style={{color: "white"}}>10 unidades</Text>
+        <Text style={{ color: "white" }}>{props.produto.quantidade} unidades</Text>
       </View>
     </View>
   );
 }
 
 export default function Visitados() {
-  /*   const [categorias, setCategorias] = useState([]);
+  const [produtos, setProdutos] = useState([]);
 
   useEffect(() => {
-    async function carregarCategorias() {
-      const response = await api.get('categories');
-      setCategorias(response.data);
+    async function carregarProdutos() {
+      try {
+        const response = await api.get("produtos");
+        setProdutos(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar todos os produtos:", error);
+      }
     }
-    carregarCategorias();
+    carregarProdutos();
   }, []);
- */
+  const ultimosQuatroProdutos = produtos.slice(-4).reverse();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -48,10 +55,9 @@ export default function Visitados() {
           justifyContent: "space-between",
         }}
       >
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {ultimosQuatroProdutos.map((produto) => (
+          <Card key={produto.id} produto={produto} />
+        ))}
       </View>
     </View>
   );
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333"
+    color: "#333",
   },
   imagem: {
     width: "100%",
