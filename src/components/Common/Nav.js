@@ -30,11 +30,9 @@ function Card(props) {
 }
 
 export default function Nav() {
-  
   const [categorias, setCategorias] = useState([]);
   const [produtos, setProdutos] = useState([]);
-  const [placeholderProduto, setPlaceholderProduto] = useState('');
-
+  const [placeholderProduto, setPlaceholderProduto] = useState("");
 
   useEffect(() => {
     async function carregarCategorias() {
@@ -49,7 +47,7 @@ export default function Nav() {
       try {
         const response = await api.get("produtos");
         const produtosArray = response.data.map((produto) => produto.nome);
-        
+
         if (produtosArray.length > 0) {
           const randomIndex = Math.floor(Math.random() * produtosArray.length);
           const randomProduto = produtosArray[randomIndex];
@@ -101,7 +99,10 @@ export default function Nav() {
             </Text>
           </View>
           <View style={styles.pesquisa}>
-            <TextInput style={styles.input} placeholder={`${placeholderProduto}...`} />
+            <TextInput
+              style={styles.input}
+              placeholder={`${placeholderProduto}...`}
+            />
             <View
               style={{
                 position: "absolute",
@@ -112,11 +113,13 @@ export default function Nav() {
                 padding: 6,
               }}
             >
-              <MaterialCommunityIcons
-                name="filter-outline"
-                size={20}
-                color="white"
-              />
+              <TouchableOpacity >
+                <MaterialCommunityIcons
+                  name="filter-outline"
+                  size={20}
+                  color="white"
+                />
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -128,11 +131,13 @@ export default function Nav() {
                 padding: 6,
               }}
             >
-              <MaterialCommunityIcons
-                name="store-search-outline"
-                size={20}
-                color="white"
-              />
+              <TouchableOpacity onPress={() => navigation.navigate("Pesquisa")}>
+                <MaterialCommunityIcons
+                  name="store-search-outline"
+                  size={20}
+                  color="white"
+                />
+              </TouchableOpacity>
             </View>
           </View>
         </View>
