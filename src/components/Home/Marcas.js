@@ -12,7 +12,7 @@ import api from '../../services/api';
 function Card(props) {
   return (
     <View style={styles.card}>
-      <Text style={{color: "#333", fontWeight: "600"}}>{props.marca.nome}</Text>
+      <Text style={{color: "#333", fontWeight: "600", textAlign: "center"}}>{props.marca.nome}</Text>
     </View>
   );
 }

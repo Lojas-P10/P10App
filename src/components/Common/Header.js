@@ -8,11 +8,30 @@ export default function Header() {
   return (
     <View style={styles.header}>
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Image
-            source={require("../../assets/marrcandre.jpeg")}
-            style={{ width: 40, height: 40, borderRadius: 10 }}
-          />
+        <TouchableOpacity
+          style={{}}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <View
+            style={{
+              width: 40,
+              height: 40,
+              borderBottomWidth: 4,
+              borderBottomColor: "rgba(0,0,0,0.1)",
+              elevation: 1,
+              borderRadius: 10,
+              shadowColor: "transparent",
+            }}
+          >
+            <Image
+              source={require("../../assets/marrcandre.jpeg")}
+              style={{
+                borderRadius: 10,
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </View>
         </TouchableOpacity>
       </View>
       <View style={styles.icones}>
@@ -49,12 +68,16 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   btnCart: {
-    backgroundColor: "#fff", 
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 10,
+    borderBottomWidth: 4,
+    borderBottomColor: "rgba(0,0,0,0.1)",
+    elevation: 1,
+    shadowColor: "transparent",
     height: 40,
-    padding: 10,
+    width: 40,
   },
   carrinhoText: {
     backgroundColor: "red",

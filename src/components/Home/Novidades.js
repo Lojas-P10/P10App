@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import api from "../../services/api";
@@ -22,7 +22,7 @@ function Card(props) {
           <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
             R${props.produto.preco}
           </Text>
-          <Text style={{ fontSize: 15, color: "#333" }}>
+          <Text style={{ fontSize: 15, color: "#333", width: 200 }}>
             {props.produto.nome}
           </Text>
         </View>
@@ -67,6 +67,12 @@ export default function Novidades() {
         {ultimosSeisProdutos.map((produto) => (
           <Card key={produto.id} produto={produto} />
         ))}
+        <View style={styles.cardMore}>
+          <Entypo name="emoji-flirt" size={30} color="#333" />
+          <Text style={{ fontWeight: "bold", color: "#333" }}>
+            Veja mais produtos
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );
@@ -77,8 +83,12 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingHorizontal: 20,
     backgroundColor: "#f8f8f8",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    borderTopWidth: 4, 
+    borderTopColor: 'rgba(0,0,0,0.1)', 
+    elevation: 1, 
+    shadowColor: 'transparent', 
   },
   header: {
     flexDirection: "row",
@@ -90,13 +100,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#333",
   },
+  cardMore: {
+    backgroundColor: "rgba(0,191,99,0.1)",
+    width: 200,
+    height: "auto",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+    marginVertical: 10,
+  },
   imagem: {
     width: "100%",
     height: 160,
     borderRadius: 10,
   },
   card: {
-    width: 180,
+    width: 250,
+    height: "auto",
     backgroundColor: "#fff",
     borderRadius: 10,
     paddingHorizontal: 10,

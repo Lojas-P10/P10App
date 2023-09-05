@@ -12,7 +12,7 @@ function Card(props) {
         <Text style={{ fontSize: 17, fontWeight: "600", color: "#333" }}>
           R${props.produto.preco}
         </Text>
-        <Text style={{ fontSize: 15, color: "#333" }}>
+        <Text style={{ fontSize: 15, color: "#333", width: 100  }}>
           {props.produto.nome}
         </Text>
       </View>

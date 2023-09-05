@@ -7,7 +7,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -30,7 +30,11 @@ function Card(props) {
 }
 
 export default function Nav() {
+  
   const [categorias, setCategorias] = useState([]);
+  const [produtos, setProdutos] = useState([]);
+  const [placeholderProduto, setPlaceholderProduto] = useState('');
+
 
   useEffect(() => {
     async function carregarCategorias() {
@@ -38,6 +42,24 @@ export default function Nav() {
       setCategorias(response.data);
     }
     carregarCategorias();
+  }, []);
+
+  useEffect(() => {
+    async function carregarProdutos() {
+      try {
+        const response = await api.get("produtos");
+        const produtosArray = response.data.map((produto) => produto.nome);
+        
+        if (produtosArray.length > 0) {
+          const randomIndex = Math.floor(Math.random() * produtosArray.length);
+          const randomProduto = produtosArray[randomIndex];
+          setPlaceholderProduto(randomProduto);
+        }
+      } catch (error) {
+        console.error("Erro ao carregar produtos:", error);
+      }
+    }
+    carregarProdutos();
   }, []);
 
   const navigation = useNavigation();
@@ -69,7 +91,7 @@ export default function Nav() {
   return (
     <View>
       <View style={styles.content}>
-        <View style={{gap: 10}}>
+        <View style={{ gap: 10 }}>
           <View>
             <Text style={{ color: "white", fontWeight: "600", fontSize: 18 }}>
               {greeting}
@@ -79,22 +101,12 @@ export default function Nav() {
             </Text>
           </View>
           <View style={styles.pesquisa}>
-            <TextInput
-              style={{
-                backgroundColor: "#fff",
-                borderRadius: 10,
-                padding: 5,
-                paddingLeft: 10,
-                width: "100%",
-                color: "#4f4f4f",
-              }}
-              placeholder="O que você procura?"
-            />
+            <TextInput style={styles.input} placeholder={`${placeholderProduto}...`} />
             <View
               style={{
                 position: "absolute",
-                right: "1%",
-                bottom: "8%",
+                right: "13%",
+                bottom: "15%",
                 backgroundColor: "#00bf63",
                 borderRadius: 10,
                 padding: 6,
@@ -102,6 +114,22 @@ export default function Nav() {
             >
               <MaterialCommunityIcons
                 name="filter-outline"
+                size={20}
+                color="white"
+              />
+            </View>
+            <View
+              style={{
+                position: "absolute",
+                right: "1%",
+                bottom: "15%",
+                backgroundColor: "#00bf63",
+                borderRadius: 10,
+                padding: 6,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="store-search-outline"
                 size={20}
                 color="white"
               />
@@ -141,13 +169,26 @@ const styles = StyleSheet.create({
   lista: {},
   content: {
     paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingBottom: 30,
     gap: 15,
   },
   pesquisa: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+  },
+  input: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingLeft: 10,
+    paddingRight: 90,
+    width: "100%",
+    color: "#4f4f4f",
+    borderBottomWidth: 4,
+    borderBottomColor: "rgba(0,0,0,0.1)",
+    elevation: 1,
+    shadowColor: "transparent",
   },
   card: {
     width: "auto",
@@ -158,6 +199,10 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
+    borderBottomWidth: 4,
+    borderBottomColor: "rgba(0,0,0,0.1)",
+    elevation: 1,
+    shadowColor: "transparent",
     marginRight: 10,
     backgroundColor: "#f8f8f8",
   },

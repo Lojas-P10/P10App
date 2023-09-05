@@ -61,13 +61,14 @@ export default function Sazonal() {
 
   return (
     <View style={styles.container}>
-      {sazonais.map((produtosSazonais, index) => (
+      {sazonais.map((categoriaSazonal, index) => (
         <View key={index}>
           <View style={styles.header}>
-            <Text style={styles.titulo}>{produtosSazonais.descricao}</Text>
+            <Text style={styles.titulo}>{categoriaSazonal.descricao}</Text>
           </View>
           <ScrollView horizontal={true}>
-            {produtos.filter((produto) => produto.sazonal).map((produto) => (
+            {produtos
+              .filter((produto) => produto.sazonal === categoriaSazonal.id).map((produto) => (
                 <Card key={produto.id} produto={produto} />
               ))}
           </ScrollView>
@@ -76,6 +77,7 @@ export default function Sazonal() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   card: {
-    width: 180,
+    width: 250,
     backgroundColor: "#fff",
     borderRadius: 10,
     paddingHorizontal: 10,
