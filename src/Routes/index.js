@@ -1,29 +1,31 @@
-/* import React from "react";
+import React from "react";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
-import Home from "./screens/Home";
-import Encomendas from "./screens/Encomendas";
-import Favoritos from "./screens/Favoritos";
-import Produto from "./screens/Produto";
-import Pesquisa from "./screens/Pesquisa";
-import Mais from "./screens/Mais";
+import Home from "../screens/Home";
+import Encomendas from "../screens/Encomendas";
+import Favoritos from "../screens/Favoritos";
+import Produto from "../screens/Produto";
+import Pesquisa from "../screens/Pesquisa";
+import Mais from "../screens/Mais";
 import Icon from "react-native-vector-icons/Feather";
 
 const Stack = createStackNavigator();
 const Tabs = AnimatedTabBarNavigator();
 
 function HomeRoutes() {
+    return (
+
   <Stack.Navigator>
     <Stack.Screen name="Home" component={Home}></Stack.Screen>
     <Stack.Screen name="Pesquisa" component={Pesquisa}></Stack.Screen>
-  </Stack.Navigator>;
+  </Stack.Navigator>
+    )
 }
 
-export default function Routes() {
+function TabRoutes() {
   return (
-    <NavigationContainer>
       <Tabs.Navigator
         tabBarOptions={{
           activeTintColor: "#00bf63",
@@ -38,7 +40,7 @@ export default function Routes() {
       >
         <Tabs.Screen
           name="Home"
-          component={HomeRoutes}
+          component={Home}
           options={{
             tabBarIcon: ({ focused, color, size }) => (
               <Icon
@@ -93,7 +95,6 @@ export default function Routes() {
           }}
         />
       </Tabs.Navigator>
-    </NavigationContainer>
   );
 }
 
@@ -108,4 +109,3 @@ export default function Routes() {
     </NavigationContainer>
   );
 }
- */
