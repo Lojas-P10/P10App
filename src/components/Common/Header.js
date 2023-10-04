@@ -38,7 +38,7 @@ export default function Header() {
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
             style={styles.btnCart}
-            onPress={() => navigation.navigate("Pedidos")}
+            onPress={() => navigation.navigate("Carrinho")}
           >
             <MaterialCommunityIcons
               name="cart-outline"

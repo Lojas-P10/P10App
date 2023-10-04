@@ -61,20 +61,23 @@ export default function Sazonal() {
 
   return (
     <View style={styles.container}>
-      {sazonais.map((categoriaSazonal, index) => (
-        <View key={index}>
+    {sazonais.map((categoriaSazonal, index) => (
+      <View key={index}>
+        {produtos.some((produto) => produto.sazonal === categoriaSazonal.id) && (
           <View style={styles.header}>
             <Text style={styles.titulo}>{categoriaSazonal.descricao}</Text>
           </View>
-          <ScrollView horizontal={true}>
-            {produtos
-              .filter((produto) => produto.sazonal === categoriaSazonal.id).map((produto) => (
-                <Card key={produto.id} produto={produto} />
-              ))}
-          </ScrollView>
-        </View>
-      ))}
-    </View>
+        )}
+        <ScrollView horizontal={true}>
+          {produtos
+            .filter((produto) => produto.sazonal === categoriaSazonal.id)
+            .map((produto) => (
+              <Card key={produto.id} produto={produto} />
+            ))}
+        </ScrollView>
+      </View>
+    ))}
+  </View>
   );
 }
 

@@ -1,37 +1,37 @@
 import React from "react";
-
-import { ScrollView, StyleSheet, View } from "react-native";
-import Visitados from "../../components/Home/Visitados";
-import Marcas from "../../components/Home/Marcas";
-import Dez from "../../components/Home/Dez";
-import Nav from "../../components/Common/Nav";
-import Sazonal from "../../components/Home/Sazonal";
-import Novidades from "../../components/Home/Novidades";
-import Promocao from "../../components/Home/Promocao";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import Header from "../../components/Common/Header";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home({ navigation }) {
+
   return (
-    <View style={styles.container}>
+    <View style={styles.main}>
       <Header />
-      <ScrollView
-        showsHorizontalScrollIndicator={true}
-        
-      >
-        <Nav />
-        <Novidades />
-        <Sazonal />
-        <Marcas />
-        <Dez />
-        <Visitados />
-      </ScrollView>
+      <View style={{
+        justifyContetn: "center",
+        alignItems: "center",
+      }}>
+        <View style={{ backgroundColor: "white", height: "90%", borderRadius: 10, width: "95%" }}>
+          <ScrollView showsHorizontalScrollIndicator={true}>
+            <View style={{justifyContent: "center", alignItems: "center"}}>
+              <MaterialCommunityIcons name="login-variant" size={104} color="#909090" />
+              <TouchableOpacity onPress={() => navigation.navigate("Login")}><Text>login</Text></TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+
+      </View>
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  main: {
     flex: 1,
+
     backgroundColor: "#00bf63",
     gap: 10,
   },
