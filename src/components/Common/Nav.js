@@ -20,7 +20,7 @@ function Card(props) {
       <MaterialCommunityIcons
         name={props.categoria.materialCommunityIcons}
         size={30}
-        color="#00bf63"
+        color="#4cd372"
       />
       <Text style={{ color: "#333", fontWeight: "600" }}>
         {props.categoria.descricao}
@@ -32,6 +32,7 @@ function Card(props) {
 export default function Nav() {
   const [categorias, setCategorias] = useState([]);
   const [produtos, setProdutos] = useState([]);
+  const [isModalVisible, setModalVisible] = useState(false);
   const [placeholderProduto, setPlaceholderProduto] = useState("");
 
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Nav() {
     }
     carregarCategorias();
   }, []);
-
+  
   useEffect(() => {
     async function carregarProdutos() {
       try {
@@ -108,7 +109,7 @@ export default function Nav() {
                 position: "absolute",
                 right: "13%",
                 bottom: "15%",
-                backgroundColor: "#00bf63",
+                backgroundColor: "#4cd372",
                 borderRadius: 10,
                 padding: 6,
               }}
@@ -126,7 +127,7 @@ export default function Nav() {
                 position: "absolute",
                 right: "1%",
                 bottom: "15%",
-                backgroundColor: "#00bf63",
+                backgroundColor: "#4cd372",
                 borderRadius: 10,
                 padding: 6,
               }}
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   btn: {
-    backgroundColor: "#00bf63",
+    backgroundColor: "#4cd372",
     height: 40,
     justifyContent: "center",
     alignItems: "center",
