@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   btn: {
-    backgroundColor: "#00bf63",
+    backgroundColor: "#4cd372",
     width: 40,
     height: 70,
     gap: 10,
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     right: 0,
   },
   unid: {
-    backgroundColor: "#00bf63",
+    backgroundColor: "#4cd372",
     padding: 7,
     justifyContent: "center",
     alignItems: "center",

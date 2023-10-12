@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   cart: {
-    backgroundColor: "#00bf63",
+    backgroundColor: "#4cd372",
     width: 40,
     height: 40,
     gap: 10,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     right: 5,
   },
   save: {
-    backgroundColor: "#00bf63",
+    backgroundColor: "#4cd372",
     width: 40,
     height: 40,
     gap: 10,

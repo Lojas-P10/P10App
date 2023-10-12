@@ -1,65 +1,57 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity, TextInput } from "react-native";
+import Input from "react-native-input-style";
+import {
+  ScrollView,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  TextInput,
+} from "react-native";
 import Header from "../../components/Common/Header";
 
 export default function Login({ navigation }) {
-    return (
-        <View style={styles.main}>
-            <View style={{
-                justifyContetn: "center",
-                alignItems: "center",
-            }}>
-                <TextInput
-                    label="Email"
-                    returnKeyType="next"
-                    value={email.value}
-                    onChangeText={(text) => setEmail({ value: text, error: '' })}
-                    error={!!email.error}
-                    errorText={email.error}
-                    autoCapitalize="none"
-                    autoCompleteType="email"
-                    textContentType="emailAddress"
-                    keyboardType="email-address"
-                />
-                <TextInput
-                    label="Password"
-                    returnKeyType="done"
-                    value={password.value}
-                    onChangeText={(text) => setPassword({ value: text, error: '' })}
-                    error={!!password.error}
-                    errorText={password.error}
-                    secureTextEntry
-                />
-                <View style={styles.forgotPassword}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('ResetPasswordScreen')}
-                    >
-                        <Text style={styles.forgot}>Forgot your password?</Text>
-                    </TouchableOpacity>
-                </View>
-                <Button mode="contained" onPress={onLoginPressed}>
-                    Login
-                </Button>
-                <View style={styles.row}>
-                    <Text>Don’t have an account? </Text>
-                    <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-                        <Text style={styles.link}>Sign up</Text>
-                    </TouchableOpacity>
-                </View>
-                <Text>Vai se fuder</Text>
-            </View>
-
-        </View>
-    );
-
+  return (
+    <View style={styles.main}>
+      <View
+        style={{
+          justifyContetn: "center",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          style={styles.logo}
+          source={require("../../../assets/logo/LojasP10/logo-menor.png")}
+        />
+        <Text>Vai se fuder</Text>
+        <Input
+          id="name"
+          label="Nome completo"
+          keyboardType="default"
+          required
+          contain=" "
+          autoCapitalize="sentences"
+          errorText="Your name is invalid"
+          onInputChange={"YOUR_InputChangeHandler"}
+          initialValue=""
+          outlined
+          borderColor="#4cd372"
+        />
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    main: {
-        flex: 1,
-        padding: 100,
-        backgroundColor: "#00bf63",
-        gap: 10,
-    },
+  main: {
+    flex: 1,
+    padding: 100,
+    backgroundColor: "#f7f7f7",
+    gap: 10,
+  },
+  logo: {
+    width: 150,
+    height: 130,
+  },
 });

@@ -30,12 +30,12 @@ function TabRoutes() {
   return (
     <Tabs.Navigator
       tabBarOptions={{
-        activeTintColor: "#00bf63",
+        activeTintColor: "#4cd372",
         inactiveTintColor: "#fff",
       }}
       appearance={{
         activeTabBackgrounds: "white",
-        tabBarBackground: "#00bf63",
+        tabBarBackground: "#4cd372",
         shadow: true,
         whenInactiveShow: "icon-only",
       }}

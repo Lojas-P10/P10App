@@ -28,7 +28,7 @@ export default function Mais({ navigation }) {
       <Header />
       <ScrollView style={styles.list}>
         <TouchableOpacity style={styles.option} onPress={() => {}}>
-          <Text style={{ color: "#00bf63", fontSize: 18, fontWeight: "bold" }}>
+          <Text style={{ color: "#4cd372", fontSize: 18, fontWeight: "bold" }}>
             @marrcandre
           </Text>
           <MaterialIcons name="keyboard-arrow-right" color="#999" size={20} />

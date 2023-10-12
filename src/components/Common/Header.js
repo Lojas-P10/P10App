@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
+import Modal from "react-native-modal";
+import ModalLogin from "./modalLogin"
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 export default function Header() {
   const navigation = useNavigation();
+  const [isModalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
   return (
     <View style={styles.header}>
       <View>
@@ -36,20 +42,25 @@ export default function Header() {
       </View>
       <View style={styles.icones}>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity
-            style={styles.btnCart}
-            onPress={() => navigation.navigate("Carrinho")}
-          >
+          <TouchableOpacity style={styles.btnCart} onPress={toggleModal}>
             <MaterialCommunityIcons
               name="cart-outline"
               size={20}
-              color="#00bf63"
+              color="#4cd372"
             />
           </TouchableOpacity>
+          <Modal
+            style={styles.modal}
+            isVisible={isModalVisible}
+            onSwipeComplete={() => setModalVisible(false)}
+            swipeDirection="down"
+            onBackdropPress={() => setModalVisible(false)}
+            onBackButtonPress={() => setModalVisible(false)}
+            backdropTransitionOutTiming={800}
+          >
+           <ModalLogin />
+          </Modal>
           <Text style={styles.carrinhoText}>.</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("Perfil")}
-          ></TouchableOpacity>
         </View>
       </View>
     </View>
@@ -57,8 +68,15 @@ export default function Header() {
 }
 
 const styles = StyleSheet.create({
+  modal: {
+    backgroundColor: "#fff",
+    margin: 0,
+    marginTop: 480,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
   header: {
-    backgroundColor: "#00bf63",
+    backgroundColor: "#4cd372",
     paddingHorizontal: 20,
     height: 100,
     paddingTop: 40,
@@ -88,6 +106,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginLeft: -8,
     zIndex: 10,
-    color: "#00bf63",
+    color: "#4cd372",
   },
 });
