@@ -8,16 +8,68 @@ import {
   View,
   Text,
   TouchableOpacity,
-  TextInput,
+  TextInput
 } from "react-native";
+import { useForm, Controller } from "react-hook-form";
+import { useState } from "react";
+import { login } from "../../services/login";
+import { saveItem } from "../../plugins/SecureStorage/secureStorageHandler.js";
+import { isValidEmail } from "../../plugins/SecureStorage/secureStorageHandler.js";
 import Header from "../../components/Common/Header";
 
 export default function Login({ navigation }) {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      Email: "",
+      Password: "",
+    },
+  });
+
+  const handleEmailValidation = (email) => {
+    console.log("ValidateEmail was called with", email);
+
+    const isValid = isValidEmail(email);
+
+    const validityChanged =
+      (errors.Email && isValid) || (!errors.Email && !isValid);
+    if (validityChanged) {
+      console.log("Fire tracker with", isValid ? "Valid" : "Invalid");
+    }
+
+    return isValid;
+  };
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const onSubmit = async (data) => {
+    setLoading(true);
+    try {
+      const status = await login(data.Email, data.Password);
+      await saveItem("token", status.access);
+      setLoading(false);
+      navigation.replace("Home");
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError(true);
+      } else {
+        console.error("Erro na solicitação:", error);
+      }
+    }
+  };
+  
+
+
+
   return (
     <KeyboardAvoidingView
       style={styles.main}
-      behavior="padding" 
-      keyboardVerticalOffset={-400} 
+      behavior="padding"
+      keyboardVerticalOffset={-400}
     >
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
@@ -36,21 +88,27 @@ export default function Login({ navigation }) {
                   alignItems: "center",
                 }}
               >
-                <MaterialCommunityIcons
-                  name="arrow-left-thin"
-                  size={25}
-                  color="white"
-                />
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 16,
-                    textDecorationStyle: "dashed",
-                    textDecorationLine: "underline",
-                  }}
+                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                  <MaterialCommunityIcons
+                    name="arrow-left-thin"
+                    size={25}
+                    color="white"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Registrar")}
                 >
-                  Crie sua conta aqui!
-                </Text>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 16,
+                      textDecorationStyle: "dashed",
+                      textDecorationLine: "underline",
+                    }}
+                  >
+                    Crie sua conta aqui!
+                  </Text>
+                </TouchableOpacity>
               </View>
               <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 30 }}>
                 Entre na sua conta
@@ -84,11 +142,24 @@ export default function Login({ navigation }) {
                       color="white"
                     />
                   </View>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                  ></TextInput>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        onBlur={onBlur}
+                        onChangeText={(value) => onChange(value)}
+                        value={value}
+                      />
+                    )}
+                    name="Email"
+                    rules={{ validate: isValidEmail }}
+                  />
                 </View>
+                {errors.Email && (
+                  <Text style={{ color: "red" }}>Email inválido</Text>
+                )}
                 <View style={{ flexDirection: "row" }}>
                   <View style={styles.button}>
                     <MaterialCommunityIcons
@@ -97,11 +168,25 @@ export default function Login({ navigation }) {
                       color="white"
                     />
                   </View>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Senha"
-                  ></TextInput>
+                  <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Senha"
+                        onBlur={onBlur}
+                        onChangeText={(value) => onChange(value)}
+                        value={value}
+                        secureTextEntry
+                      />
+                    )}
+                    name="Password"
+                    rules={{ required: "Senha é obrigatória" }}
+                  />
                 </View>
+                {errors.Password && (
+                  <Text style={{ color: "red" }}>{errors.Password.message}</Text>
+                )}
               </View>
               <View>
                 <View
@@ -123,7 +208,7 @@ export default function Login({ navigation }) {
                 </View>
                 <TouchableOpacity
                   style={styles.buttonGreen}
-                  onPress={() => navigation.navigate("Home")}
+                  onPress={handleSubmit(onSubmit)}
                 >
                   <Text style={{ color: "white", fontWeight: "600" }}>
                     Entrar
