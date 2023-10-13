@@ -34,7 +34,7 @@ export default function ModalLogin() {
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Login")}
+          onPress={() => navigation.navigate("Registrar")}
         >
           <Text style={{ color: "white", fontWeight: "600" }}>
             Crie uma conta

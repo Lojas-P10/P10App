@@ -10,8 +10,11 @@ import {
   TextInput,
 } from "react-native";
 import Header from "../../components/Common/Header";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Login({ navigation }) {
+export default function Registrar() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.main}>
       <View>
@@ -23,25 +26,28 @@ export default function Login({ navigation }) {
               marginTop: 50,
               marginBottom: 50,
               justifyContent: "space-between",
-
               alignItems: "center",
             }}
           >
-            <MaterialCommunityIcons
-              name="arrow-left-thin"
-              size={25}
-              color="white"
-            />
-            <Text
-              style={{
-                color: "#fff",
-                fontSize: 16,
-                textDecorationStyle: "dashed",
-                textDecorationLine: "underline",
-              }}
-            >
-              Já tenho conta!
-            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+              <MaterialCommunityIcons
+                name="arrow-left-thin"
+                size={25}
+                color="white"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <Text
+                style={{
+                  color: "#fff",
+                  fontSize: 16,
+                  textDecorationStyle: "dashed",
+                  textDecorationLine: "underline",
+                }}
+              >
+                Já tenho conta!
+              </Text>
+            </TouchableOpacity>
           </View>
           <Text style={{ fontWeight: "bold", color: "#fff", fontSize: 30 }}>
             Crie sua conta

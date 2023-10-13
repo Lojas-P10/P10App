@@ -8,7 +8,8 @@ import Encomendas from "../screens/Encomendas";
 import Favoritos from "../screens/Favoritos";
 import Produto from "../screens/Produto";
 import Carrinho from "../screens/Carrinho";
-import Login from "../screens/Login";
+import Login from "../screens/Autenticacao/login";
+import Registrar from "../screens/Autenticacao/registrar";
 import Pesquisa from "../screens/Pesquisa";
 import Mais from "../screens/Mais";
 import Icon from "react-native-vector-icons/Feather";
@@ -108,6 +109,7 @@ export default function Routes() {
         <Stack.Screen name="Pesquisa" component={Pesquisa} />
         <Stack.Screen name="Carrinho" component={Carrinho} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Registrar" component={Registrar} />
         <Stack.Screen name="TabRoutes" component={TabRoutes} />
       </Stack.Navigator>
     </NavigationContainer>
