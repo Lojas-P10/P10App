@@ -1,5 +1,7 @@
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
+import * as SecureStore from "expo-secure-store";
+import { ActivityIndicator } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   ScrollView,
@@ -16,8 +18,11 @@ import { login } from "../../services/login";
 import { saveItem } from "../../plugins/SecureStorage/secureStorageHandler.js";
 import { isValidEmail } from "../../plugins/SecureStorage/secureStorageHandler.js";
 import Header from "../../components/Common/Header";
+import { useNavigation } from "@react-navigation/native";
 
-export default function Login({ navigation }) {
+export default function Login() {
+  const navigation = useNavigation();
+
   const {
     control,
     handleSubmit,
@@ -45,14 +50,15 @@ export default function Login({ navigation }) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-
   const onSubmit = async (data) => {
     setLoading(true);
     try {
       const status = await login(data.Email, data.Password);
-      await saveItem("token", status.access);
+
+      localStorage.setItem("token", status.access);
+
       setLoading(false);
-      navigation.replace("Home");
+      navigation.replace("Carrinho");
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setError(true);
@@ -61,9 +67,6 @@ export default function Login({ navigation }) {
       }
     }
   };
-  
-
-
 
   return (
     <KeyboardAvoidingView
@@ -75,6 +78,13 @@ export default function Login({ navigation }) {
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
+      {loading && (
+        <View >
+          <ActivityIndicator size="large" color="#666" />
+        </View>
+      )}
+
+
         <View>
           <View>
             <View style={{ paddingHorizontal: 15, marginBottom: 30 }}>

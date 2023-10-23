@@ -1,16 +1,52 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-native-modal";
-import ModalLogin from "./modalLogin"
+import ModalLogin from "./modalLogin";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Header() {
   const navigation = useNavigation();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
+
+  useEffect(() => {
+    const checkUserAuthentication = async () => {
+      const userIsAuthenticated = await checkAuthentication();
+      setIsAuthenticated(userIsAuthenticated);
+    };
+  
+    checkUserAuthentication();
+  }, []);
+  
+
+  const checkAuthentication = async () => {
+    try {
+
+      const token = await AsyncStorage.getItem("authToken");
+
+      return !!token;
+    } catch (error) {
+      console.error("Erro ao recuperar o token de autenticação:", error);
+      return false;
+    }
+  };
+  
+  
+  
+  const handleCartPress = () => {
+    if (isAuthenticated) {
+      navigation.navigate("Carrinho");
+    } else {
+      setModalVisible(true); 
+    }
+  };
+
   return (
     <View style={styles.header}>
       <View>
@@ -42,27 +78,27 @@ export default function Header() {
       </View>
       <View style={styles.icones}>
         <View style={{ flexDirection: "row" }}>
-          <TouchableOpacity style={styles.btnCart} onPress={toggleModal}>
+          <TouchableOpacity style={styles.btnCart} onPress={handleCartPress}>
             <MaterialCommunityIcons
               name="cart-outline"
               size={20}
               color="#4cd372"
             />
           </TouchableOpacity>
-          <Modal
-            style={styles.modal}
-            isVisible={isModalVisible}
-            onSwipeComplete={() => setModalVisible(false)}
-            swipeDirection="down"
-            onBackdropPress={() => setModalVisible(false)}
-            onBackButtonPress={() => setModalVisible(false)}
-            backdropTransitionOutTiming={800}
-          >
-           <ModalLogin />
-          </Modal>
           <Text style={styles.carrinhoText}>.</Text>
         </View>
       </View>
+      <Modal
+        style={styles.modal}
+        isVisible={isModalVisible}
+        onSwipeComplete={() => setModalVisible(false)}
+        swipeDirection="down"
+        onBackdropPress={() => setModalVisible(false)}
+        onBackButtonPress={() => setModalVisible(false)}
+        backdropTransitionOutTiming={800}
+      >
+        <ModalLogin />
+      </Modal>
     </View>
   );
 }
