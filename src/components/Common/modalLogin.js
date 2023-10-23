@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: "100%",
     alignItems: "center",
-    backgroundColor: "#4cd372",
+    backgroundColor: "#6344c3",
   },
   modalContent: {
     flex: 1,
