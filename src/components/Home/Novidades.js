@@ -15,7 +15,7 @@ import api from "../../services/api";
 function Card(props) {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity onPress={() => navigation.navigate("Produto")}>
+    <TouchableOpacity onPress={() => navigation.navigate("Produto", { productId: props.produto.id })}>
       <View style={styles.card}>
         <Image style={styles.imagem} source={{ uri: props.produto.imagem }} />
         <View>
