@@ -5,11 +5,12 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1e1617",
+      "color": "#fff"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,8 +20,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/logo/LojasP10/Linkedin/linkedin_profile_1000x1000.png",
+        "backgroundColor": "#1e1617"
       }
     },
     "web": {
