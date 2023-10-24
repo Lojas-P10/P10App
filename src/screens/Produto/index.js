@@ -74,12 +74,12 @@ export default function Produto({ route }) {
             <MaterialCommunityIcons
               name="arrow-left-bold-outline"
               size={24}
-              color="#000"
+              color="#222"
             />
             <MaterialCommunityIcons
               name="cards-heart-outline"
               size={24}
-              color="#000"
+              color="#222"
             />
           </View>
           <View>
@@ -89,6 +89,10 @@ export default function Produto({ route }) {
             >
               <Text style={styles.nomeProduto}>{productData.nome}</Text>
               <Text style={styles.preco}>R$ {productData.preco}</Text>
+            </View>
+            <View>
+              <Text style={{color: "#222", fontWeight: "600"}}>Detahes</Text>
+              <Text style={{color: "#333"}}>{productData.descricao}</Text>
             </View>
           </View>
         </View>
@@ -107,11 +111,11 @@ const styles = StyleSheet.create({
   },
   nomeProduto: {
     color: "#222",
-    fontSize: 21,
+    fontSize: 25,
   },
   preco: {
     color: "#4cd372",
-    fontSize: 21,
-    fontWeight: "600",
+    fontSize: 19,
+    fontWeight: "700",
   }
 });
