@@ -10,34 +10,28 @@ import {
 } from "react-native";
 import Header from "../../components/Common/Header";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import produtoApi from "../../services/produtos";
+import api from "../../services/api";
+import { TouchableOpacity } from "react-native";
+import { Fontisto } from "@expo/vector-icons";
 export default function Produto({ route }) {
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const productId = route.params.productId;
 
-  const fetchProductData = async (productId) => {
-    try {
-      const response = await fetch(
-        `https://p10backend-eugreg-dev.fl0.io/api/produtos/${productId}`
-      );
-      if (response.status === 200) {
-        const data = await response.json();
-        setProductData(data);
+  useEffect(() => {
+    async function carregarProduto() {
+      try {
+        const response = await api.get(`produtos/${productId}`);
+        setProductData(response.data);
         setLoading(false);
-      } else {
-        setError("Produto não encontrado");
+      } catch (error) {
+        setError("Error loading product data");
         setLoading(false);
       }
-    } catch (error) {
-      setError("Erro ao buscar informações do produto");
-      setLoading(false);
     }
-  };
-
-  useEffect(() => {
-    fetchProductData(productId);
+    carregarProduto();
   }, [productId]);
 
   const renderItem = (imagem) => (
@@ -45,10 +39,8 @@ export default function Produto({ route }) {
       source={{ uri: imagem.url }}
       style={{
         width: "100%",
-        height: 300,
+        height: 500,
         borderRadius: 20,
-        borderBottomRightRadius: 0,
-        borderBottomLeftRadius: 0,
         marginBottom: 20,
         position: "relative",
       }}
@@ -63,41 +55,65 @@ export default function Produto({ route }) {
       ) : error ? (
         <Text>{error}</Text>
       ) : (
-        <View style={{ paddingHorizontal: 10 }}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            marginTop: 10,
+            flex: 1,
+            width: "100%",
+          }}
+        >
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "space-between",
               marginVertical: 15,
             }}
           >
             <MaterialCommunityIcons
               name="arrow-left-bold-outline"
-              size={24}
-              color="#222"
-            />
-            <MaterialCommunityIcons
-              name="cards-heart-outline"
-              size={24}
-              color="#222"
+              size={30}
+              color="#444"
             />
           </View>
           <View>
-            {productData.imagem.map((imagem) => renderItem(imagem))}
+            {productData?.imagem?.map((imagem) => renderItem(imagem))}
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}
+              style={{
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
             >
               <Text style={styles.nomeProduto}>{productData.nome}</Text>
-              <Text style={styles.preco}>R$ {productData.preco}</Text>
             </View>
-            <View>
-              <Text style={{color: "#222", fontWeight: "600"}}>Detahes</Text>
-              <Text style={{color: "#333"}}>{productData.descricao}</Text>
-            </View>
+{/*             <View>
+              <View style={{backgroundColor: "#4cd37233", padding: 5, width:"fit-content"}}>
+                <Text style={styles.preco}>R$ {productData.preco}</Text>
+              </View>
+              <Text style={{ color: "#333", fontSize: 18, marginVertical: 5 }}>
+                {productData.descricao}
+              </Text>
+            </View> */}
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              bottom: 0,
+              width: "auto",
+              flexDirection: "row",
+              padding: 14,
+            }}
+          >
+            <TouchableOpacity style={styles.buttonCarrinho}>
+              <Text style={{ color: "white", fontWeight: "600" }}>
+                Adicionar ao carrinho
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonSalvar}>
+              <Fontisto name="favorite" size={24} color="white" />
+            </TouchableOpacity>
           </View>
         </View>
       )}
-      <ScrollView showsHorizontalScrollIndicator={true}></ScrollView>
     </View>
   );
 }
@@ -110,12 +126,30 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   nomeProduto: {
-    color: "#222",
-    fontSize: 25,
+    color: "#444",
+    fontWeight: 500,
+    fontSize: 30,
   },
   preco: {
     color: "#4cd372",
     fontSize: 19,
     fontWeight: "700",
-  }
+  },
+  buttonCarrinho: {
+    padding: 18,
+    borderRadius: 10,
+    marginVertical: 10,
+    alignItems: "center",
+    width: "82%",
+    backgroundColor: "#6344c3",
+  },
+  buttonSalvar: {
+    padding: 18,
+    borderRadius: 10,
+    marginVertical: 10,
+    width: "20%",
+    marginLeft: 10,
+    alignItems: "center",
+    backgroundColor: "#4cd372",
+  },
 });
